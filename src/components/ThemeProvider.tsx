@@ -1,8 +1,11 @@
-import { ThemeProvider as NextThemesProvider } from "next-themes";
-import * as React from "react";
+import { ReactNode, useEffect, useState } from "react";
 
-type ThemeProviderProps = React.ComponentProps<typeof NextThemesProvider>;
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const [dark, setDark] = useState(false);
 
-export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
-  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", dark);
+  }, [dark]);
+
+  return <>{children}</>;
 }
